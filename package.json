@@ -1,8 +1,16 @@
 {
   "name": "2fa-node",
-  "version": "0.0.1",
-  "main": "index.js",
+  "version": "0.0.2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
+    "build": "rimraf dist && tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
     "test": "node --loader ts-node/esm --enable-source-maps bin/test.ts",
     "lint": "npx eslint ./lib/**",
     "lint:fix": "npx eslint ./lib/** --fix"
@@ -36,6 +44,7 @@
     "eslint": "^9.17.0",
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
