@@ -28,6 +28,7 @@
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@japa/assert": "^4.0.1",
+    "@japa/expect": "^3.0.3",
     "@japa/expect-type": "^2.0.3",
     "@japa/runner": "^4.1.0",
     "@types/node": "^22.10.5",
