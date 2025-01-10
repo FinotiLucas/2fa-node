@@ -1,12 +1,16 @@
 {
   "name": "2fa-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FinotiLucas/2fa-node"
+  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "prepare": "npm run build",
