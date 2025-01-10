@@ -1,0 +1,17 @@
+import type { BaseReporterOptions, NamedReporterContract } from '../types.js';
+/**
+ * Create an instance of the spec reporter
+ */
+export declare const spec: (options?: BaseReporterOptions) => NamedReporterContract;
+/**
+ * Create an instance of the dot reporter
+ */
+export declare const dot: (options?: BaseReporterOptions) => NamedReporterContract;
+/**
+ * Create an instance of the ndjson reporter
+ */
+export declare const ndjson: (options?: BaseReporterOptions) => NamedReporterContract;
+/**
+ * Create an instance of the github reporter
+ */
+export declare const github: (options?: BaseReporterOptions) => NamedReporterContract;

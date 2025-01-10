@@ -1,0 +1,48 @@
+{
+  "name": "totp-node",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --loader ts-node/esm --enable-source-maps bin/test.ts",
+    "lint": "npx eslint ./lib/**",
+    "lint:fix": "npx eslint ./lib/** --fix"
+  },
+  "keywords": [
+    "totp",
+    "hotp",
+    "otp",
+    "authenticator",
+    "one time password",
+    "google authenticator",
+    "authentication",
+    "2FA",
+    "2 factor",
+    "node",
+    "auth",
+    "2fa",
+    "mfa"
+  ],
+  "author": "Lucas Lima Finoti <lucas.finoti@protonmail.com>",
+  "license": "MIT",
+  "description": "Easy 2-Factor Integration For Node.js",
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@japa/assert": "^4.0.1",
+    "@japa/expect-type": "^2.0.3",
+    "@japa/runner": "^4.1.0",
+    "@types/node": "^22.10.5",
+    "@types/qrcode": "^1.5.5",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.19.1"
+  },
+  "type": "module",
+  "dependencies": {
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.4"
+  }
+}
