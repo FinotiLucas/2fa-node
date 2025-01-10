@@ -32,11 +32,9 @@ const options = {
   account: 'user@example.com' // User account (email or username)
 };
 
-generateSecret(options).then(result => {
-  console.log(result.secret); // The generated secret key
-  console.log(result.uri);    // The otpauth URI
-  console.log(result.qr);     // The Data URL for the QR code
-});
+const secret = await generateSecret(options)
+
+console.log(secret)
 ```
 
 ### Generate TOTP Token
