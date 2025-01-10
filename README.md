@@ -1,4 +1,4 @@
-# TOTP NODE
+# 2FA NODE
 
 This library provides a set of utilities to generate and verify time-based one-time passwords (TOTP) and HMAC-based one-time passwords (HOTP), allowing easy integration of two-factor authentication (2FA) in applications. It also supports generating QR codes for easy scanning with authenticator apps like Google Authenticator or Authy.
 
@@ -15,7 +15,7 @@ This library provides a set of utilities to generate and verify time-based one-t
 To install this library, run the following command:
 
 ```bash
-npm install totp-node
+npm install 2fa-node
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ npm install totp-node
 This function generates a secret key, a URI, and a QR code for 2FA integration. It returns a promise that resolves to an object containing the secret, URI, and the QR code as a data URL.
 
 ```typescript
-import { generateSecret } from 'totp-node';
+import { generateSecret } from '2fa-node';
 
 const options = {
   name: 'MyApp', // Application name
@@ -44,7 +44,7 @@ generateSecret(options).then(result => {
 This function generates a time-based one-time password (TOTP) using the provided secret key.
 
 ```typescript
-import { generateToken } from 'totp-node';
+import { generateToken } from '2fa-node';
 
 const secret = 'JBSWY3DPEHPK3PXP'; // Your pre-generated secret
 const result = generateToken(secret);
@@ -57,7 +57,7 @@ console.log(result.token); // The generated TOTP token
 This function verifies if a provided TOTP token is valid for the given secret key.
 
 ```typescript
-import { verifyToken } from 'totp-node';
+import { verifyToken } from '2fa-node';
 
 const secret = 'JBSWY3DPEHPK3PXP'; // The secret key used for verification
 const token = '123456'; // The token to verify
@@ -72,7 +72,7 @@ console.log(isValid); // true if valid, false if invalid
 This function generates a HMAC-based one-time password (HOTP) token based on the provided secret key and counter value.
 
 ```typescript
-import { generateHOTPToken } from 'totp-node';
+import { generateHOTPToken } from '2fa-node';
 
 const secret = 'JBSWY3DPEHPK3PXP'; // Your pre-generated secret
 const counter = 1; // Optional counter (defaults to 0)
@@ -87,7 +87,7 @@ console.log(result.token); // The generated HOTP token
 This function verifies if a provided HOTP token is valid for the given secret key and counter value.
 
 ```typescript
-import { verifyHOTPToken } from 'totp-node';
+import { verifyHOTPToken } from '2fa-node';
 
 const secret = 'JBSWY3DPEHPK3PXP'; // The secret key used for verification
 const token = '123456'; // The token to verify
