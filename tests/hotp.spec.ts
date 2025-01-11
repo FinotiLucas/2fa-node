@@ -4,7 +4,8 @@ import { generateSecret } from '../lib/secret.js'
 
 const { secret } = await generateSecret({
   name: "App",
-  account: "exemple@exemple.com"
+  account: "exemple@exemple.com",
+  counter: 0,
 });
 
 const counter = 0;

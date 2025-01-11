@@ -24,15 +24,33 @@ npm install 2fa-node
 
 This function generates a secret key, a URI, and a QR code for 2FA integration. It returns a promise that resolves to an object containing the secret, URI, and the QR code as a data URL.
 
+### Generate TOTP Secret
+
 ```typescript
 import { generateSecret } from '2fa-node';
 
 const options = {
   name: 'MyApp', // Application name
-  account: 'user@example.com' // User account (email or username)
+  account: 'user@example.com', // User account (email or username)
 };
 
-const secret = await generateSecret(options)
+const secret = await generateSecret(option)
+
+console.log(secret)
+```
+
+### Generate HOTP Secret
+
+```typescript
+import { generateSecret } from '2fa-node';
+
+const options = {
+  name: 'MyApp', // Application name
+  account: 'user@example.com', // User account (email or username)
+  counter: 0 // ONLY WITH HOTP
+};
+
+const secret = await generateSecret(option, "HOTP")
 
 console.log(secret)
 ```
