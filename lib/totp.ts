@@ -38,5 +38,5 @@ export function generateToken(secret: string): { token: string } | null {
  */
 export function verifyToken(secret: string, token?: string): boolean | null {
   if (!token || !token.length) return null
-  return totp.verify({ token, secret })
+  return totp.check( token, secret )
 }

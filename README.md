@@ -29,12 +29,12 @@ This function generates a secret key, a URI, and a QR code for 2FA integration. 
 ```typescript
 import { generateSecret } from '2fa-node';
 
-const options = {
+const payload = {
   name: 'MyApp', // Application name
   account: 'user@example.com', // User account (email or username)
 };
 
-const secret = await generateSecret(option)
+const secret = await generateSecret(payload)
 
 console.log(secret)
 ```

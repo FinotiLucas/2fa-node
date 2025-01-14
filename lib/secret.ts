@@ -1,15 +1,15 @@
 import QRCode from 'qrcode'
 import { authenticator } from 'otplib'
-import { Options } from './interfaces.js'
+import { Payload } from './interfaces.js'
 import type { OTPType } from './types.js'
 
 /**
  * Generates a secret key for two-factor authentication (TOTP or HOTP), along with a URI and a QR code for easy integration with an authenticator app.
  *
- * @param {Options} options - The options for generating the secret key.
- * @param {string} options.name - The name of the application or service (displayed in the authenticator app).
- * @param {string} options.account - The account identifier (e.g., email or username) associated with the user.
- * @param {number} [options.counter] - The counter value, required only for HOTP. Defaults to `0` if not provided and the type is "HOTP".
+ * @param {Payload} Payload - The Payload for generating the secret key.
+ * @param {string} payload.name - The name of the application or service (displayed in the authenticator app).
+ * @param {string} payload.account - The account identifier (e.g., email or username) associated with the user.
+ * @param {number} [payload.counter] - The counter value, required only for HOTP. Defaults to `0` if not provided and the type is "HOTP".
  * @param {OTPType} [type="TOTP"] - The type of OTP to generate. Defaults to "TOTP" (Time-based OTP). Use "HOTP" for counter-based OTP.
  *
  * @returns {Promise<{ secret: string, uri: string, qr: string }>} - A Promise that resolves to an object containing:
@@ -19,28 +19,26 @@ import type { OTPType } from './types.js'
  *
  * @example
  * // Generating a time-based (TOTP) secret:
- * const options = { name: 'MyApp', account: 'user@example.com' };
+ * const payload = { name: 'MyApp', account: 'user@example.com' };
  *
- * generateSecret(options).then(result => {
- *   console.log(result.secret); // The generated secret key
- *   console.log(result.uri);    // The otpauth URI
- *   console.log(result.qr);     // The Data URL for the QR code
- * });
+ * const secret = await generateSecret(payload)
+ * console.log(secret.secret); // The generated secret key
+ * console.log(secret.uri);    // The otpauth URI for HOTP
+ * console.log(secret.qr);     // The Data URL for the QR code
  *
  * @example
  * // Generating a counter-based (HOTP) secret:
- * const options = { name: 'MyApp', account: 'user@example.com', counter: 1 };
+ * const payload = { name: 'MyApp', account: 'user@example.com', counter: 1 };
  *
- * generateSecret(options, 'HOTP').then(result => {
- *   console.log(result.secret); // The generated secret key
- *   console.log(result.uri);    // The otpauth URI for HOTP
- *   console.log(result.qr);     // The Data URL for the QR code
- * });
+ * const secret = await generateSecret(payload, "HOTP")
+ * console.log(secret.secret); // The generated secret key
+ * console.log(secret.uri);    // The otpauth URI for HOTP
+ * console.log(secret.qr);     // The Data URL for the QR code
  */
 
 
 export async function generateSecret(
-  options: Options,
+  payload: Payload,
   type: OTPType = 'TOTP'
 ): Promise<{
   secret: string
@@ -48,9 +46,9 @@ export async function generateSecret(
   qr: string
 }> {
   const config = {
-    name: encodeURIComponent(options?.name ?? 'App'),
-    account: options.account ? encodeURIComponent(`:${options.account}`) : '',
-    count: type === 'HOTP' ? (options.counter ?? 0).toString() : undefined,
+    name: encodeURIComponent(payload?.name ?? 'App'),
+    account: payload.account ? encodeURIComponent(`:${payload.account}`) : '',
+    count: type === 'HOTP' ? (payload.counter ?? 0).toString() : undefined,
   } as const
 
   const secret = authenticator.generateSecret(20)
