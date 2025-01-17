@@ -27,6 +27,7 @@ export function generateToken(secret: string): { token: string } | null {
  *
  * @param {string} secret - The secret key associated with the TOTP token.
  * @param {string} [token] - The TOTP token to verify.
+ * @param {number | [number, number]} [window = 4] - Tokens in the previous and future x-windows that should be considered valid. If integer, same value will be used for both. Alternatively, define array: [past, future]
  *
  * @returns {boolean|null} - Returns `true` if the token is valid, `false` if it's invalid, or `null` if the token is missing.
  *
@@ -40,9 +41,7 @@ export function verifyToken(secret: string, token?: string, window: number | [nu
   if (!token || !token.length) return null
 
   authenticator.options = {
-    window: window,
-    step: 30,
-    digits: 6
+    window: window
   }
 
   return authenticator.check( token, secret )
