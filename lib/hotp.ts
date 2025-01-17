@@ -44,5 +44,10 @@ export function verifyHOTPToken(
   counter: number = 0
 ): boolean | null {
   if (!token || !token.length) return null
+
+  hotp.options = {
+    window: window,
+  }
+
   return hotp.verify({ token, secret, counter: counter! })
 }

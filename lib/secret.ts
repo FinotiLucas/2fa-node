@@ -1,7 +1,7 @@
 import QRCode from 'qrcode'
 import { authenticator } from 'otplib'
 import { Payload } from './interfaces.js'
-import type { OTPType } from './types.js'
+import type { Strategy } from './types.js'
 
 /**
  * Generates a secret key for two-factor authentication (TOTP or HOTP), along with a URI and a QR code for easy integration with an authenticator app.
@@ -10,7 +10,7 @@ import type { OTPType } from './types.js'
  * @param {string} payload.name - The name of the application or service (displayed in the authenticator app).
  * @param {string} payload.account - The account identifier (e.g., email or username) associated with the user.
  * @param {number} [payload.counter] - The counter value, required only for HOTP. Defaults to `0` if not provided and the type is "HOTP".
- * @param {OTPType} [type="TOTP"] - The type of OTP to generate. Defaults to "TOTP" (Time-based OTP). Use "HOTP" for counter-based OTP.
+ * @param {Strategy} [strategy="TOTP"] - The type of OTP to generate. Defaults to "TOTP" (Time-based OTP). Use "HOTP" for counter-based OTP.
  *
  * @returns {Promise<{ secret: string, uri: string, qr: string }>} - A Promise that resolves to an object containing:
  *    - `secret` (string): The generated secret key for OTP.
@@ -39,7 +39,7 @@ import type { OTPType } from './types.js'
 
 export async function generateSecret(
   payload: Payload,
-  type: OTPType = 'TOTP'
+  strategy: Strategy = 'TOTP'
 ): Promise<{
   secret: string
   uri: string
@@ -48,13 +48,13 @@ export async function generateSecret(
   const config = {
     name: encodeURIComponent(payload?.name ?? 'App'),
     account: payload.account ? encodeURIComponent(`:${payload.account}`) : '',
-    count: type === 'HOTP' ? (payload.counter ?? 0).toString() : undefined,
+    count: strategy === 'HOTP' ? (payload.counter ?? 0).toString() : undefined,
   } as const
 
   const secret = authenticator.generateSecret(20)
 
   const uri =
-    type === 'TOTP'
+    strategy === 'TOTP'
       ? new URL(`otpauth://totp/${config.name}${config.account}`)
       : new URL(`otpauth://hotp/${config.name}${config.account}`)
 
@@ -63,7 +63,7 @@ export async function generateSecret(
     name: config.name,
   }
 
-  if (type === 'HOTP' && config.count) {
+  if (strategy === 'HOTP' && config.count) {
     params.counter = config.count
   }
 
