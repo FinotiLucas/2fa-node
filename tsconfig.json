@@ -10,11 +10,6 @@
     "declaration": true,
     "sourceMap": true
   },
-  "include": [
-    "lib/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

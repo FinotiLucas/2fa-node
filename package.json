@@ -1,6 +1,6 @@
 {
   "name": "2fa-node",
-  "version": "0.0.6",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -16,8 +16,10 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test",
     "test": "node --loader ts-node/esm --enable-source-maps bin/test.ts",
+    "format": "prettier --write .",
     "lint": "npx eslint ./lib/**",
-    "lint:fix": "npx eslint ./lib/** --fix"
+    "lint:fix": "npx eslint ./lib/** --fix",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "totp",

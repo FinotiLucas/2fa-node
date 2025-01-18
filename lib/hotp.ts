@@ -1,4 +1,4 @@
-import { hotp } from 'otplib'
+import { hotp } from "otplib";
 
 /**
  * Generates a HMAC-based one-time password (HOTP) token based on the provided secret and counter.
@@ -16,10 +16,13 @@ import { hotp } from 'otplib'
  * const result = generateHOTPToken(secret, counter);
  * console.log(result.token); // The generated HOTP token
  */
-export function generateHOTPToken(secret: string, counter: number = 0): { token: string } | null {
-  if (!secret || !secret.length) return null
-  const token = hotp.generate(secret, counter!)
-  return { token: token }
+export function generateHOTPToken(
+  secret: string,
+  counter: number = 0,
+): { token: string } | null {
+  if (!secret || !secret.length) return null;
+  const token = hotp.generate(secret, counter!);
+  return { token: token };
 }
 
 /**
@@ -44,13 +47,13 @@ export function verifyHOTPToken(
   secret: string,
   token?: string,
   counter: number = 0,
-  window: number | [number, number] = 4
+  window: number | [number, number] = 4,
 ): boolean | null {
-  if (!token || !token.length) return null
+  if (!token || !token.length) return null;
 
   hotp.options = {
     window: window,
-  }
+  };
 
-  return hotp.verify({ token, secret, counter: counter! })
+  return hotp.verify({ token, secret, counter: counter! });
 }

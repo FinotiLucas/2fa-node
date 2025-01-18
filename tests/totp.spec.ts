@@ -1,13 +1,15 @@
+import { test } from "@japa/runner";
+import { generateToken, verifyToken } from "../lib/totp.js";
+import { generateSecret } from "../lib/secret.js";
 
-import { test } from '@japa/runner'
-import { generateToken, verifyToken } from '../lib/totp.js'
-import { generateSecret } from '../lib/secret.js'
-
-const { secret } = await generateSecret({
-  name: "App",
-  account: "exemple@exemple.com",
-  counter: 0
-}, 'HOTP');
+const { secret } = await generateSecret(
+  {
+    name: "App",
+    account: "exemple@exemple.com",
+    counter: 0,
+  },
+  "HOTP",
+);
 
 const token = generateToken(secret);
 

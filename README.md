@@ -27,32 +27,32 @@ This function generates a secret key, a URI, and a QR code for 2FA integration. 
 ### Generate TOTP Secret
 
 ```typescript
-import { generateSecret } from '2fa-node';
+import { generateSecret } from "2fa-node";
 
 const payload = {
-  name: 'MyApp', // Application name
-  account: 'user@example.com', // User account (email or username)
+  name: "MyApp", // Application name
+  account: "user@example.com", // User account (email or username)
 };
 
-const secret = await generateSecret(payload)
+const secret = await generateSecret(payload);
 
-console.log(secret)
+console.log(secret);
 ```
 
 ### Generate HOTP Secret
 
 ```typescript
-import { generateSecret } from '2fa-node';
+import { generateSecret } from "2fa-node";
 
 const options = {
-  name: 'MyApp', // Application name
-  account: 'user@example.com', // User account (email or username)
-  counter: 0 // ONLY WITH HOTP
+  name: "MyApp", // Application name
+  account: "user@example.com", // User account (email or username)
+  counter: 0, // ONLY WITH HOTP
 };
 
-const secret = await generateSecret(option, "HOTP")
+const secret = await generateSecret(option, "HOTP");
 
-console.log(secret)
+console.log(secret);
 ```
 
 ### Generate TOTP Token
@@ -60,9 +60,9 @@ console.log(secret)
 This function generates a time-based one-time password (TOTP) using the provided secret key.
 
 ```typescript
-import { generateToken } from '2fa-node';
+import { generateToken } from "2fa-node";
 
-const secret = 'JBSWY3DPEHPK3PXP'; // Your pre-generated secret
+const secret = "JBSWY3DPEHPK3PXP"; // Your pre-generated secret
 const result = generateToken(secret);
 
 console.log(result.token); // The generated TOTP token
@@ -73,10 +73,10 @@ console.log(result.token); // The generated TOTP token
 This function verifies if a provided TOTP token is valid for the given secret key.
 
 ```typescript
-import { verifyToken } from '2fa-node';
+import { verifyToken } from "2fa-node";
 
-const secret = 'JBSWY3DPEHPK3PXP'; // The secret key used for verification
-const token = '123456'; // The token to verify
+const secret = "JBSWY3DPEHPK3PXP"; // The secret key used for verification
+const token = "123456"; // The token to verify
 
 const isValid = verifyToken(secret, token);
 
@@ -88,9 +88,9 @@ console.log(isValid); // true if valid, false if invalid
 This function generates a HMAC-based one-time password (HOTP) token based on the provided secret key and counter value.
 
 ```typescript
-import { generateHOTPToken } from '2fa-node';
+import { generateHOTPToken } from "2fa-node";
 
-const secret = 'JBSWY3DPEHPK3PXP'; // Your pre-generated secret
+const secret = "JBSWY3DPEHPK3PXP"; // Your pre-generated secret
 const counter = 1; // Optional counter (defaults to 0)
 
 const result = generateHOTPToken(secret, counter);
@@ -103,10 +103,10 @@ console.log(result.token); // The generated HOTP token
 This function verifies if a provided HOTP token is valid for the given secret key and counter value.
 
 ```typescript
-import { verifyHOTPToken } from '2fa-node';
+import { verifyHOTPToken } from "2fa-node";
 
-const secret = 'JBSWY3DPEHPK3PXP'; // The secret key used for verification
-const token = '123456'; // The token to verify
+const secret = "JBSWY3DPEHPK3PXP"; // The secret key used for verification
+const token = "123456"; // The token to verify
 const counter = 1; // The counter associated with the token
 
 const isValid = verifyHOTPToken(secret, token, counter);
@@ -117,6 +117,7 @@ console.log(isValid); // true if valid, false if invalid
 ## API Documentation
 
 ### `generateSecret(options: Options): Promise<{ secret: string, uri: string, qr: string }>`
+
 Generates a secret key, URI, and QR code for 2FA integration.
 
 - **Parameters**:
@@ -129,6 +130,7 @@ Generates a secret key, URI, and QR code for 2FA integration.
   - `qr`: The Data URL for the QR code.
 
 ### `generateToken(secret: string): { token: string } | null`
+
 Generates a TOTP token.
 
 - **Parameters**:
@@ -136,6 +138,7 @@ Generates a TOTP token.
 - **Returns**: An object containing the generated token, or `null` if the secret is invalid or missing.
 
 ### `verifyToken(secret: string, token?: string): boolean | null`
+
 Verifies the validity of a TOTP token.
 
 - **Parameters**:
@@ -144,6 +147,7 @@ Verifies the validity of a TOTP token.
 - **Returns**: `true` if the token is valid, `false` if it's invalid, or `null` if the token is missing.
 
 ### `generateHOTPToken(secret: string, counter: number = 0): { token: string } | null`
+
 Generates an HOTP token.
 
 - **Parameters**:
@@ -152,6 +156,7 @@ Generates an HOTP token.
 - **Returns**: An object containing the generated token, or `null` if the secret is invalid or missing.
 
 ### `verifyHOTPToken(secret: string, token?: string, counter: number = 0): boolean | null`
+
 Verifies the validity of an HOTP token.
 
 - **Parameters**:

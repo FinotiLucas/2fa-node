@@ -1,4 +1,4 @@
-import { authenticator } from 'otplib'
+import { authenticator } from "otplib";
 
 /**
  * Generates a time-based one-time password (TOTP) token based on the provided secret.
@@ -15,11 +15,11 @@ import { authenticator } from 'otplib'
  * console.log(result.token); // The generated token
  */
 export function generateToken(secret: string): { token: string } | null {
-  if (!secret || !secret.length) return null
+  if (!secret || !secret.length) return null;
 
-  const token = authenticator.generate(secret)
+  const token = authenticator.generate(secret);
 
-  return { token: token }
+  return { token: token };
 }
 
 /**
@@ -37,12 +37,16 @@ export function generateToken(secret: string): { token: string } | null {
  * const isValid = verifyToken(secret, token);
  * console.log(isValid); // true if valid, false if invalid
  */
-export function verifyToken(secret: string, token?: string, window: number | [number, number] = 4): boolean | null {
-  if (!token || !token.length) return null
+export function verifyToken(
+  secret: string,
+  token?: string,
+  window: number | [number, number] = 4,
+): boolean | null {
+  if (!token || !token.length) return null;
 
   authenticator.options = {
-    window: window
-  }
+    window: window,
+  };
 
-  return authenticator.check( token, secret )
+  return authenticator.check(token, secret);
 }

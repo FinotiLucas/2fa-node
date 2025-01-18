@@ -1,6 +1,6 @@
-import { test } from '@japa/runner'
-import { generateHOTPToken, verifyHOTPToken } from '../lib/hotp.js'
-import { generateSecret } from '../lib/secret.js'
+import { test } from "@japa/runner";
+import { generateHOTPToken, verifyHOTPToken } from "../lib/hotp.js";
+import { generateSecret } from "../lib/secret.js";
 
 const { secret } = await generateSecret({
   name: "App",

@@ -1,7 +1,7 @@
-import QRCode from 'qrcode'
-import { authenticator } from 'otplib'
-import { Payload } from './interfaces.js'
-import type { Strategy } from './types.js'
+import QRCode from "qrcode";
+import { authenticator } from "otplib";
+import { Payload } from "./interfaces.js";
+import type { Strategy } from "./types.js";
 
 /**
  * Generates a secret key for two-factor authentication (TOTP or HOTP), along with a URI and a QR code for easy integration with an authenticator app.
@@ -36,42 +36,41 @@ import type { Strategy } from './types.js'
  * console.log(secret.qr);     // The Data URL for the QR code
  */
 
-
 export async function generateSecret(
   payload: Payload,
-  strategy: Strategy = 'TOTP'
+  strategy: Strategy = "TOTP",
 ): Promise<{
-  secret: string
-  uri: string
-  qr: string
+  secret: string;
+  uri: string;
+  qr: string;
 }> {
   const config = {
-    name: encodeURIComponent(payload?.name ?? 'App'),
-    account: payload.account ? encodeURIComponent(`:${payload.account}`) : '',
-    count: strategy === 'HOTP' ? (payload.counter ?? 0).toString() : undefined,
-  } as const
+    name: encodeURIComponent(payload?.name ?? "App"),
+    account: payload.account ? encodeURIComponent(`:${payload.account}`) : "",
+    count: strategy === "HOTP" ? (payload.counter ?? 0).toString() : undefined,
+  } as const;
 
-  const secret = authenticator.generateSecret(20)
+  const secret = authenticator.generateSecret(20);
 
   const uri =
-    strategy === 'TOTP'
+    strategy === "TOTP"
       ? new URL(`otpauth://totp/${config.name}${config.account}`)
-      : new URL(`otpauth://hotp/${config.name}${config.account}`)
+      : new URL(`otpauth://hotp/${config.name}${config.account}`);
 
   const params: Record<string, string> = {
     secret,
     name: config.name,
+  };
+
+  if (strategy === "HOTP" && config.count) {
+    params.counter = config.count;
   }
 
-  if (strategy === 'HOTP' && config.count) {
-    params.counter = config.count
-  }
-
-  uri.search = new URLSearchParams(params).toString()
+  uri.search = new URLSearchParams(params).toString();
 
   return {
     secret,
     uri: uri.href,
     qr: await QRCode.toDataURL(uri.href),
-  }
+  };
 }

@@ -1,6 +1,6 @@
 export const OTPTypeEnum = {
-  TOTP : 'TOTP',
-  HOTP : 'HOTP'
-} as const
+  TOTP: "TOTP",
+  HOTP: "HOTP",
+} as const;
 
-export type Strategy = keyof typeof OTPTypeEnum
+export type Strategy = keyof typeof OTPTypeEnum;
